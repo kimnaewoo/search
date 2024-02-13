@@ -1,5 +1,7 @@
+import Nav from './Navigation/Nav';
+
 function App() {
-  return <h1></h1>;
+  return <Nav />;
 }
 
 export default App;
