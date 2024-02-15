@@ -2,11 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 
-const Movie = ({ props, page }) => {
+const Movie = ({ getTotalPage, page }) => {
   const [movieList, setMovieList] = useState([]);
 
   const sendTotalPage = (totalpage) => {
-    props.getTotalPage(totalpage);
+    getTotalPage(totalpage);
   };
   useEffect(() => {
     axios

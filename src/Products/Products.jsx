@@ -7,7 +7,6 @@ const Products = () => {
   const [page, setPage] = useState(1);
 
   function getTotalPage(totalpage) {
-    console.log(totalpage);
     setTotalPage(totalpage);
   }
   function getPage(page) {
