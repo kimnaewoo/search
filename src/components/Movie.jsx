@@ -2,26 +2,27 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 
-const Movie = () => {
+const Movie = ({ props, page }) => {
   const [movieList, setMovieList] = useState([]);
-  // let movieList = [];
-  let page = '1';
+
+  const sendTotalPage = (totalpage) => {
+    props.getTotalPage(totalpage);
+  };
   useEffect(() => {
     axios
       .get(
-        'https://api.themoviedb.org/3/movie/top_rated?api_key=62068813c6fffb6c407d3833d5c2580d&append_to_response=videos&language=ko-KR'
-        // ,{
-        //   params: { api_key: process.env.REACT_APP_API_KEY, language: 'ko-KR' },
-        // }
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=62068813c6fffb6c407d3833d5c2580d&append_to_response=videos&language=ko-KR&page=${page}`
+        // ,{ params: { api_key: process.env.REACT_APP_API_KEY, language: 'ko-KR' },}
       )
       .then((response) => {
         console.log(response);
-        // movieList = response.data.title;
         setMovieList(response.data.results);
+        sendTotalPage(response.data.total_pages);
         console.log(movieList);
       })
       .catch((error) => {});
-  }, []);
+  }, [page]);
+
   return (
     <>
       {movieList.map((v, i) => (
@@ -40,7 +41,6 @@ const Movie = () => {
           {/* <div>{movieList}</div> */}
         </section>
       ))}
-      ;
     </>
   );
 };
