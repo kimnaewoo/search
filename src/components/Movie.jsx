@@ -6,6 +6,7 @@ const Movie = ({ getTotalPage, page }) => {
   const [movieList, setMovieList] = useState([]);
 
   const sendTotalPage = (totalpage) => {
+    console.log('자식보내줌');
     getTotalPage(totalpage);
   };
   useEffect(() => {

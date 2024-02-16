@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const Pagenation = ({ getPage, totalPage }) => {
+const Pagenation = (props) => {
   const [page, setPage] = useState(1);
-
-  const sendPage = (page) => {
-    console.log(page);
-    getPage(page);
-  };
+  const [totalPage, setTotalPage] = useState(1);
+  // console.log(totalPage);
 
   const nextPage = () => {
-    sendPage((nextPage) => nextPage + 1);
+    props.totalPage((nextPage) => nextPage + 1);
   };
 
   const prevPage = () => {
-    sendPage((prevPage) => Math.max(prevPage - 1, 1));
+    props.totalPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-
-  const pageArr = Array(totalPage)
+  const pageArr = Array(props.totalPage)
     .fill()
     .map((p, i) => {
       return i;
@@ -30,11 +26,11 @@ const Pagenation = ({ getPage, totalPage }) => {
       <ul>
         {pageArr.map((p, i) => (
           <li key={i}>
-            <button onClick={() => sendPage(p + 1)}>{p + 1}</button>
+            <button onClick={() => nextPage(p + 1)}>{p + 1}</button>
           </li>
         ))}
       </ul>
-      <button onClick={nextPage} disabled={page === totalPage}>
+      <button onClick={nextPage} disabled={page === props.totalPage}>
         다음
       </button>
     </div>
