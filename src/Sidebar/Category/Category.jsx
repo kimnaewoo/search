@@ -6,10 +6,22 @@ const Category = () => {
     <div>
       <h2 className="sidebar-title">영화목록</h2>
       <div>
-        <Input />
-        <Input />
-        <Input />
-        <Input />
+        <label className="sidebar-label-container">
+          <input type="radio" name="test" />
+          <span className="checkmark"></span>한국영화
+        </label>
+        <label className="sidebar-label-container">
+          <input type="radio" name="test" />
+          <span className="checkmark"></span>외국영화
+        </label>
+        <label className="sidebar-label-container">
+          <input type="radio" name="test" />
+          <span className="checkmark"></span>일본영화
+        </label>
+        <label className="sidebar-label-container">
+          <input type="radio" name="test" />
+          <span className="checkmark"></span>중국영화
+        </label>
       </div>
     </div>
   );

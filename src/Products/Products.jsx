@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AiFillStar } from 'react-icons/ai';
 import './products.css';
-// import Movie from '../components/Movie';
 import Pagenation from '../components/Pagenation';
 
 const Products = () => {
@@ -24,19 +23,6 @@ const Products = () => {
       })
       .catch((error) => {});
   }, [page]);
-  // console.log(totalPage);
-  // const sendTotalPage = (totalpage) => {
-  //   console.log('자식보내줌');
-  //   getTotalPage(totalpage);
-  // };
-
-  // function getTotalPage(totalpage) {
-  //   setTotalPage(totalpage);
-  //   console.log(totalPage);
-  // }
-  // function getPage(page) {
-  //   setPage(page);
-  // }
 
   return (
     <>
@@ -54,12 +40,10 @@ const Products = () => {
                 <span className="total-review">4</span>
               </section>
             </div>
-            {/* <div>{movieList}</div> */}
           </section>
         ))}
-        {/* <Movie getTotalPage={getTotalPage} page={page} /> */}
       </section>
-      <Pagenation totalPage={totalPage} />
+      {/* <Pagenation totalPage={totalPage} /> */}
     </>
   );
 };
