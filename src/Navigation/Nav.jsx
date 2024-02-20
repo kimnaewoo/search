@@ -20,7 +20,7 @@ const Nav = ({ data, Search }) => {
           className="search-input"
           value={searchTerm}
           onChange={handleChange}
-          placeholder="검색어를 입력하세요"
+          placeholder="영화제목을 입력하세요"
         />
       </div>
       <div className="profile container">

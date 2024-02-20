@@ -8,23 +8,27 @@ import axios from 'axios';
 function App() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  // const [totalPage, setTotalPage] = useState(20);
-  const [page, setPage] = useState(1);
+  const [totalpage, setTotalpage] = useState(20);
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     fetchData();
-  }, [page]);
+  }, [currentPage]);
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=62068813c6fffb6c407d3833d5c2580d&append_to_response=videos&language=ko-KR&page=${page}`
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=62068813c6fffb6c407d3833d5c2580d&append_to_response=videos&language=ko-KR&page=${currentPage}`
       );
       console.log(response);
       setData(response.data.results);
       setFilteredData(response.data.results);
-      // setTotalPage(response.data.total_pages);
+      setTotalpage(response.data.total_pages);
     } catch (error) {
       console.log(error);
     }
+  };
+  const onSetCurrentPage = (currentPage) => {
+    setCurrentPage(currentPage);
   };
   const handleSearch = (searchResult) => {
     setFilteredData(searchResult);
@@ -35,7 +39,7 @@ function App() {
       <Sidebar />
       <Nav data={data} Search={handleSearch} />
       <Recommended />
-      <Products data={filteredData} />
+      <Products Data={data} data={filteredData} totalpage={totalpage} updateCurrentPage={onSetCurrentPage} />
     </>
   );
 }

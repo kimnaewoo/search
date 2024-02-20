@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import './products.css';
+import { Pagination, PaginationItem } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-const Products = ({ data }) => {
+const Products = ({ data, totalpage, updateCurrentPage }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const pageChange = (event) => {
+    const currentPageIndex = Number(event.target.outerText);
+
+    setCurrentPage(currentPageIndex);
+    updateCurrentPage(currentPageIndex);
+  };
   return (
     <>
       <section className="movie-container">
@@ -22,7 +33,14 @@ const Products = ({ data }) => {
           </section>
         ))}
       </section>
-      {/* <Pagenation totalPage={totalPage} /> */}
+      <Pagination
+        count={totalpage}
+        page={currentPage}
+        defaultPage={1}
+        onChange={pageChange}
+        renderItem={(item) => <PaginationItem slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }} {...item} />}
+      />
+      {/* <Pagenation page={page} totalpage={totalpage} /> */}
     </>
   );
 };
