@@ -1,5 +1,5 @@
 import { FiHeart } from 'react-icons/fi';
-import { AiFillStar, AiOutlineShoppingCart, AiOutlineUserAdd } from 'react-icons/ai';
+import { AiOutlineShoppingCart, AiOutlineUserAdd } from 'react-icons/ai';
 import React, { useState } from 'react';
 import './nav.css';
 const Nav = ({ data, Search }) => {
