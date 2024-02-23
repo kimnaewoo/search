@@ -5,7 +5,8 @@ import { Pagination, PaginationItem } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-const Products = ({ data, totalpage, updateCurrentPage }) => {
+const Products = ({ query, data, totalpage, updateCurrentPage }) => {
+  console.log(query);
   const [currentPage, setCurrentPage] = useState(1);
 
   const pageChange = (event) => {
@@ -14,6 +15,7 @@ const Products = ({ data, totalpage, updateCurrentPage }) => {
     setCurrentPage(currentPageIndex);
     updateCurrentPage(currentPageIndex);
   };
+
   return (
     <>
       <section className="movie-container">

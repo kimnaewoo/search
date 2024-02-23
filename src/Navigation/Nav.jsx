@@ -1,27 +1,19 @@
 import { FiHeart } from 'react-icons/fi';
 import { AiOutlineShoppingCart, AiOutlineUserAdd } from 'react-icons/ai';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './nav.css';
-const Nav = ({ data, Search }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const Nav = ({ onTextChange }) => {
+  const query = useRef(null);
 
-  const handleChange = (e) => {
-    const searchTerm = e.target.value;
-    setSearchTerm(searchTerm);
-    const filteredData = data.filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()));
-    Search(filteredData);
+  const sendQuery = () => {
+    onTextChange(query.current.value);
   };
 
   return (
     <nav>
       <div className="nav-container">
-        <input
-          type="text"
-          className="search-input"
-          value={searchTerm}
-          onChange={handleChange}
-          placeholder="영화제목을 입력하세요"
-        />
+        <input type="text" className="search-input" ref={query} placeholder="영화제목을 입력하세요" />
+        <button onClick={sendQuery}>검색</button>
       </div>
       <div className="profile container">
         <a href="#">

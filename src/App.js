@@ -10,7 +10,7 @@ const token =
 
 function App() {
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  const [filtereddata, setFilteredData] = useState([]);
   const [totalpage, setTotalpage] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState([]);
@@ -18,17 +18,10 @@ function App() {
   useEffect(() => {
     fetchData();
   }, [currentPage]);
+  useEffect(() => {
+    searchData();
+  }, [query]);
 
-  const searchData = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=ko-KR&page=1`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -36,8 +29,18 @@ function App() {
       );
       console.log(response);
       setData(response.data.results);
-      setFilteredData(response.data.results);
       setTotalpage(response.data.total_pages);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const searchData = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=ko-KR&page=1`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -45,16 +48,23 @@ function App() {
   const onSetCurrentPage = (currentPage) => {
     setCurrentPage(currentPage);
   };
-  const handleSearch = (searchResult) => {
-    setFilteredData(searchResult);
+
+  const onTextChange = (text) => {
+    setQuery(text);
+    console.log(text);
   };
 
   return (
     <>
       <Sidebar />
-      <Nav data={data} Search={handleSearch} />
+      <Nav onTextChange={onTextChange} />
       <Recommended />
-      <Products Data={data} data={filteredData} totalpage={totalpage} updateCurrentPage={onSetCurrentPage} />
+      <Products
+        query={query}
+        data={data}
+        totalpage={totalpage}
+        updateCurrentPage={onSetCurrentPage}
+      />
     </>
   );
 }
