@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import Nav from './Navigation/Nav';
 import Products from './Products/Products';
 import Recommended from './Recommended/Recommended';
@@ -10,7 +10,7 @@ const token =
 
 function App() {
   const [data, setData] = useState([]);
-  const [filtereddata, setFilteredData] = useState([]);
+  const [searchdata, setSearchData] = useState([]);
   const [totalpage, setTotalpage] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState([]);
@@ -21,6 +21,9 @@ function App() {
   useEffect(() => {
     searchData();
   }, [query]);
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   const fetchData = async () => {
     try {
@@ -40,7 +43,7 @@ function App() {
         `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=ko-KR&page=1`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(response.data.results);
+      setSearchData(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -59,12 +62,7 @@ function App() {
       <Sidebar />
       <Nav onTextChange={onTextChange} />
       <Recommended />
-      <Products
-        query={query}
-        data={data}
-        totalpage={totalpage}
-        updateCurrentPage={onSetCurrentPage}
-      />
+      <Products searchdata={searchdata} data={data} totalpage={totalpage} updateCurrentPage={onSetCurrentPage} />
     </>
   );
 }

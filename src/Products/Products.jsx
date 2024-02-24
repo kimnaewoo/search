@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import './products.css';
 import { Pagination, PaginationItem } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-const Products = ({ query, data, totalpage, updateCurrentPage }) => {
-  console.log(query);
+const Products = ({ searchdata, data, totalpage, updateCurrentPage }) => {
+  // console.log(searchdata);
   const [currentPage, setCurrentPage] = useState(1);
 
   const pageChange = (event) => {
@@ -19,21 +19,43 @@ const Products = ({ query, data, totalpage, updateCurrentPage }) => {
   return (
     <>
       <section className="movie-container">
-        {data.map((v, i) => (
-          <section className="movie" key={i}>
-            <img src={'https://image.tmdb.org/t/p/original' + v.poster_path} alt={v.title} className="movie-img" />
-            <div className="movie-details">
-              <h3 className="movie-title">{JSON.stringify(v.title)}</h3>
-              <section className="movie-reviews">
-                <AiFillStar className="ratings-start" />
-                <AiFillStar className="ratings-start" />
-                <AiFillStar className="ratings-start" />
-                <AiFillStar className="ratings-start" />
-                <span className="total-review">4</span>
+        {searchdata.length > 0 ? (
+          <>
+            {searchdata.map((v, i) => (
+              <section className="movie" key={i}>
+                <img src={'https://image.tmdb.org/t/p/original' + v.poster_path} alt={v.title} className="movie-img" />
+                <div className="movie-details">
+                  <h3 className="movie-title">{JSON.stringify(v.title)}</h3>
+                  <section className="movie-reviews">
+                    <AiFillStar className="ratings-start" />
+                    <AiFillStar className="ratings-start" />
+                    <AiFillStar className="ratings-start" />
+                    <AiFillStar className="ratings-start" />
+                    <span className="total-review">4</span>
+                  </section>
+                </div>
               </section>
-            </div>
-          </section>
-        ))}
+            ))}
+          </>
+        ) : (
+          <>
+            {data.map((v, i) => (
+              <section className="movie" key={i}>
+                <img src={'https://image.tmdb.org/t/p/original' + v.poster_path} alt={v.title} className="movie-img" />
+                <div className="movie-details">
+                  <h3 className="movie-title">{JSON.stringify(v.title)}</h3>
+                  <section className="movie-reviews">
+                    <AiFillStar className="ratings-start" />
+                    <AiFillStar className="ratings-start" />
+                    <AiFillStar className="ratings-start" />
+                    <AiFillStar className="ratings-start" />
+                    <span className="total-review">4</span>
+                  </section>
+                </div>
+              </section>
+            ))}
+          </>
+        )}
       </section>
       <Pagination
         count={totalpage}
